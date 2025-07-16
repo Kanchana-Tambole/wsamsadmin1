@@ -17,8 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class AcademicCategoryDto {
- 
-	
 
 	    private long categoryId;
 

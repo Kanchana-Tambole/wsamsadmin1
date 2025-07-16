@@ -21,6 +21,7 @@ import com.ws.spring.model.Country;
 import com.ws.spring.model.Course;
 import com.ws.spring.model.CourseSubject;
 import com.ws.spring.model.Department;
+import com.ws.spring.model.DocumentType;
 import com.ws.spring.model.FacultyProfile;
 import com.ws.spring.model.JobDesignation;
 import com.ws.spring.model.Language;
@@ -42,6 +43,42 @@ import com.ws.spring.model.UserProfile;
 
 public class CommonBuilder {
 	
+	
+	
+	public static DocumentTypeDto buildDocumentTypeDto(DocumentType documentType) {
+	    if (documentType == null) {
+	        return null;
+	    }
+
+	    return DocumentTypeDto.builder()
+	            .documentTypeId(documentType.getDocumentTypeId())
+	            .typeCode(documentType.getTypeCode())
+	            .documentName(documentType.getDocumentName())
+	            .isMandatory(documentType.isMandatory())
+	            .insertedDate(documentType.getInsertedDate())
+	            .updatedDate(documentType.getUpdatedDate())
+	            .createdBy(documentType.getCreatedBy() == null ? null :
+	                new UserProfileDtoList(
+	                    documentType.getCreatedBy().getUserId(),
+	                    documentType.getCreatedBy().getFullName(),
+	                    documentType.getCreatedBy().getUserName(),
+	                    documentType.getCreatedBy().getMobileNumber()))
+	            .updatedBy(documentType.getUpdatedBy() == null ? null :
+	                new UserProfileDtoList(
+	                    documentType.getUpdatedBy().getUserId(),
+	                    documentType.getUpdatedBy().getFullName(),
+	                    documentType.getUpdatedBy().getUserName(),
+	                    documentType.getUpdatedBy().getMobileNumber()))
+	            .build();
+	}
+
+	
+	public static List<DocumentTypeDto> buildDocumentTypeDtoList(List<DocumentType> documentTypeList) {
+	    return documentTypeList.stream()
+	            .map(CommonBuilder::buildDocumentTypeDto)
+	            .collect(Collectors.toList());
+	}
+
 	
 	
 	public static AcademicYearDto buildAcademicYearDto(AcademicYear academicYear) {
