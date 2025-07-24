@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class BloodGroupDto {
 
     private long id;
+<<<<<<< HEAD
 
     private String bloodGroup;
 
@@ -25,6 +26,17 @@ public class BloodGroupDto {
 
     private UserProfileDtoList updatedBy;
 
+=======
+    private String bloodGroup;
+
+    private LocalDateTime insertedDate;
+    private LocalDateTime updatedDate;
+
+    private UserProfileDtoList createdBy;
+    private UserProfileDtoList updatedBy;
+
+    // Constructor with UserProfile model as input
+>>>>>>> daccd45 (Initial commit)
     public BloodGroupDto(long id, String bloodGroup, LocalDateTime insertedDate,
                          LocalDateTime updatedDate, UserProfile createdBy, UserProfile updatedBy) {
         super();
@@ -56,6 +68,10 @@ public class BloodGroupDto {
         }
     }
 
+<<<<<<< HEAD
+=======
+    // Constructor with UserProfileDtoList as input
+>>>>>>> daccd45 (Initial commit)
     public BloodGroupDto(long id, String bloodGroup, LocalDateTime insertedDate,
                          LocalDateTime updatedDate, UserProfileDtoList createdBy, UserProfileDtoList updatedBy) {
         super();

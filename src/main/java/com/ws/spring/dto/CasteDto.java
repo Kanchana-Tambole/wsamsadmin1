@@ -28,7 +28,11 @@ public class CasteDto {
 
     private UserProfileDtoList updatedBy;
 
+<<<<<<< HEAD
     // Constructor that maps from entity (with UserProfile and Religion models)
+=======
+    // Constructor with model entities
+>>>>>>> daccd45 (Initial commit)
     public CasteDto(long casteId, String casteName, Religion religion, LocalDateTime insertedDate,
                     LocalDateTime updatedDate, UserProfile createdBy, UserProfile updatedBy) {
         this.casteId = casteId;
@@ -72,7 +76,11 @@ public class CasteDto {
         }
     }
 
+<<<<<<< HEAD
     // Constructor with prebuilt DTOs
+=======
+    // Constructor with DTOs
+>>>>>>> daccd45 (Initial commit)
     public CasteDto(long casteId, String casteName, ReligionDto religion,
                     LocalDateTime insertedDate, LocalDateTime updatedDate,
                     UserProfileDtoList createdBy, UserProfileDtoList updatedBy) {

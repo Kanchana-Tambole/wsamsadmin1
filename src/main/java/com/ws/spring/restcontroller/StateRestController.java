@@ -1,6 +1,10 @@
 package com.ws.spring.restcontroller;
 
 import java.util.HashMap;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> daccd45 (Initial commit)
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,12 +26,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ws.common.util.ClientResponseUtil;
 import com.ws.spring.dto.StateDto;
+=======
+import org.springframework.web.bind.annotation.*;
+
+import com.ws.common.util.ClientResponseUtil;
+import com.ws.spring.dto.StateDto;
+import com.ws.spring.dto.StateDtoList;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.exception.ClientResponseBean;
 import com.ws.spring.model.State;
 import com.ws.spring.service.StateServiceImpl;
 
 import io.swagger.annotations.Api;
 
+<<<<<<< HEAD
 
 	@RestController
 	@RequestMapping("/state")
@@ -126,3 +139,101 @@ import io.swagger.annotations.Api;
 	    }
 	
 
+=======
+@RestController
+@RequestMapping("/state")
+@Api(value = "State Management System", tags = "State Management System")
+public class StateRestController {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @Autowired
+    private StateServiceImpl stateServiceImpl;
+
+    // ✅ Create State
+    @PostMapping("/v1/createState")
+    public ResponseEntity<ClientResponseBean> createState(@RequestBody StateDto stateDto) {
+        try {
+            logger.debug("createState StateName : {}", stateDto.getStateName());
+
+            if (null != stateServiceImpl.getStateNameExist(stateDto.getStateName())) {
+                return ResponseEntity.ok().body(ClientResponseUtil.getExceptionResponse(HttpStatus.BAD_REQUEST.value(),
+                        "State Already Exist"));
+            }
+
+            State stateCreated = stateServiceImpl.createState(stateDto);
+
+            logger.debug("createState Id : {}, StateName: {}", stateCreated.getStateId(), stateCreated.getStateName());
+
+            return ResponseEntity.ok().body(new ClientResponseBean(HttpStatus.CREATED.value(), "SUCCESS",
+                    "State Successfully Created", ""));
+
+        } catch (Exception e) {
+            logger.error("Exception occurred : {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(new ClientResponseBean(HttpStatus.BAD_REQUEST.value(), "FAILED",
+                    e.getCause() != null && e.getCause().getCause() != null ? e.getCause().getCause().getMessage() : e.getMessage(), ""));
+        }
+    }
+
+    // ✅ Update State
+    @PutMapping("/v1/updateState")
+    public ResponseEntity<ClientResponseBean> updateState(@RequestBody StateDto stateDto) {
+        try {
+            logger.debug("updateState StateName : {}", stateDto.getStateName());
+
+            State stateUpdated = stateServiceImpl.updateState(stateDto);
+
+            logger.debug("updateState Id : {}, StateName: {}", stateUpdated.getStateId(), stateUpdated.getStateName());
+
+            return ResponseEntity.ok().body(new ClientResponseBean(HttpStatus.CREATED.value(), "SUCCESS",
+                    "State Successfully Updated", ""));
+
+        } catch (Exception e) {
+            logger.error("Exception occurred : {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(new ClientResponseBean(HttpStatus.BAD_REQUEST.value(), "FAILED",
+                    e.getCause() != null && e.getCause().getCause() != null ? e.getCause().getCause().getMessage() : e.getMessage(), ""));
+        }
+    }
+
+    // ✅ Delete State by ID
+    @DeleteMapping("/v1/deleteStateById/{stateId}")
+    public ResponseEntity<ClientResponseBean> deleteStateById(@PathVariable long stateId) {
+        try {
+            stateServiceImpl.deleteStateById(stateId);
+            return ResponseEntity.ok().body(new ClientResponseBean(HttpStatus.OK.value(), "SUCCESS",
+                    "State Successfully Deleted", ""));
+        } catch (Exception e) {
+            logger.error("Exception occurred : {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(new ClientResponseBean(HttpStatus.BAD_REQUEST.value(), "FAILED",
+                    e.getCause() != null && e.getCause().getCause() != null ? e.getCause().getCause().getMessage() : e.getMessage(), ""));
+        }
+    }
+
+    // ✅ Get State by ID (full data)
+    @GetMapping("/v1/getStateByStateId/{stateId}")
+    public ResponseEntity<?> getStateByStateId(@PathVariable long stateId) {
+        StateDto stateDto = stateServiceImpl.getStateByStateId(stateId);
+        if (stateDto == null) {
+            Map<String, String> noContentMessage = new HashMap<>();
+            noContentMessage.put("message", "Nothing found");
+            return ResponseEntity.ok().body(noContentMessage);
+        }
+        return ResponseEntity.ok().body(stateDto);
+    }
+
+    // ✅ Get All States (summary list)
+    @GetMapping("/v1/getAllState")
+    public ResponseEntity<List<StateDtoList>> getAllState() {
+        // ❗️Fixed return type to match service method: List<StateDtoList>
+        List<StateDtoList> stateDtos = stateServiceImpl.getAllState();
+        return ResponseEntity.ok().body(stateDtos);
+    }
+
+    // ✅ Get All States with Pagination (detailed list)
+    @GetMapping("/v1/getAllStateByPagination")
+    public Page<StateDto> getAllStateByPagination(@RequestParam int pageNumber,
+                                                  @RequestParam int pageSize) {
+        return stateServiceImpl.getAllStateByPagination(pageNumber, pageSize);
+    }
+}
+>>>>>>> daccd45 (Initial commit)

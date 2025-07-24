@@ -89,7 +89,10 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+<<<<<<< HEAD
             <version>42.5.4</version>
+=======
+>>>>>>> daccd45 (Initial commit)
         </dependency>
 
         <dependency>
@@ -252,6 +255,7 @@
         </profile>
 
         <profile>
+<<<<<<< HEAD
             <id>prod</id>
             <build>
                 <finalName>wsamsadmin</finalName>
@@ -267,5 +271,26 @@
                 </plugins>
             </build>
         </profile>
+=======
+			<id>prod</id>
+			<build>
+				<finalName>wsamsadmin</finalName>
+				<!-- <directory>prod-deploy</directory> -->
+				<defaultGoal>package</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration> <!-- ${project.basedir} , ${project.build.directory} -->
+							<outputDirectory>${basedir}/../prod-deploy</outputDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<properties>
+				<activatedProperties>prod</activatedProperties>
+			</properties>
+		</profile>
+>>>>>>> daccd45 (Initial commit)
     </profiles>
 </project>

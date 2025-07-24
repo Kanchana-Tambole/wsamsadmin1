@@ -1,6 +1,7 @@
 package com.ws.spring.restcontroller;
 
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -21,11 +22,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ws.common.util.ClientResponseUtil;
 import com.ws.spring.dto.CountryDto;
+=======
+import java.util.List;
+import java.util.Map;
+
+import com.ws.common.util.ClientResponseUtil;
+import com.ws.spring.dto.CountryDto;
+import com.ws.spring.dto.CountryDtoList;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.exception.ClientResponseBean;
 import com.ws.spring.model.Country;
 import com.ws.spring.service.CountryServiceImpl;
 
 import io.swagger.annotations.Api;
+<<<<<<< HEAD
 
 
 
@@ -127,3 +137,119 @@ import io.swagger.annotations.Api;
 	    }
 	
 
+=======
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/country")
+@Api(value = "Country Management System", tags = "Country Management System")
+public class CountryRestController {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @Autowired
+    CountryServiceImpl countryServiceImpl;
+
+    @PostMapping("/v1/createCountry")
+    public ResponseEntity<ClientResponseBean> createCountry(@RequestBody CountryDto countryDto) {
+        try {
+            logger.debug("createCountry CountryName : {}", countryDto.getCountryName());
+
+            if (null != countryServiceImpl.getCountryNameExist(countryDto.getCountryName())) {
+                return ResponseEntity.ok().body(ClientResponseUtil.getExceptionResponse(HttpStatus.BAD_REQUEST.value(),
+                        "Country Already Exist"));
+            }
+
+            Country countryCreated = countryServiceImpl.createCountry(countryDto);
+
+            logger.debug("createCountry Id : {}, CountryName: {}", countryCreated.getCountryId(),
+                    countryCreated.getCountryName());
+
+            return ResponseEntity.ok().body(new ClientResponseBean(HttpStatus.CREATED.value(), "SUCCESS",
+                    " Country Successfully Created", ""));
+
+        } catch (Exception e) {
+            logger.error("Exception occurred : {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(new ClientResponseBean(HttpStatus.BAD_REQUEST.value(), "FAILED",
+                    e.getCause() != null && e.getCause().getCause() != null
+                            ? e.getCause().getCause().getMessage()
+                            : e.getMessage(),
+                    ""));
+        }
+    }
+
+    @PutMapping("/v1/updateCountry")
+    public ResponseEntity<ClientResponseBean> updateCountry(@RequestBody CountryDto countryDto) {
+        try {
+            logger.debug("updateCountry CountryName : {}", countryDto.getCountryName());
+
+            Country countryUpdated = countryServiceImpl.updateCountry(countryDto);
+
+            logger.debug("updateCountry Id : {}, CountryName: {}", countryUpdated.getCountryId(),
+                    countryUpdated.getCountryName());
+
+            return ResponseEntity.ok().body(new ClientResponseBean(HttpStatus.CREATED.value(), "SUCCESS",
+                    " Country Successfully Updated", ""));
+
+        } catch (Exception e) {
+            logger.error("Exception occurred : {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(new ClientResponseBean(HttpStatus.BAD_REQUEST.value(), "FAILED",
+                    e.getCause() != null && e.getCause().getCause() != null
+                            ? e.getCause().getCause().getMessage()
+                            : e.getMessage(),
+                    ""));
+        }
+    }
+
+    @DeleteMapping("/v1/deleteCountryById/{countryId}")
+    public ResponseEntity<ClientResponseBean> deleteCountryById(@PathVariable long countryId) {
+        try {
+            countryServiceImpl.deleteCountryById(countryId);
+
+            return ResponseEntity.ok().body(new ClientResponseBean(HttpStatus.OK.value(), "SUCCESS",
+                    " Country successfully deleted", ""));
+
+        } catch (Exception e) {
+            logger.error("Exception occurred : {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(new ClientResponseBean(HttpStatus.BAD_REQUEST.value(), "FAILED",
+                    e.getCause() != null && e.getCause().getCause() != null
+                            ? e.getCause().getCause().getMessage()
+                            : e.getMessage(),
+                    ""));
+        }
+    }
+
+    @GetMapping("/v1/getCountryByCountryId/{countryId}")
+    public ResponseEntity<?> getCountryByCountryId(@PathVariable long countryId) {
+        CountryDto countryDto = countryServiceImpl.getCountryByCountryId(countryId);
+
+        if (null == countryDto) {
+            Map<String, String> noContentMessage = new HashMap<>();
+            noContentMessage.put("message", "Nothing found");
+            return ResponseEntity.ok().body(noContentMessage);
+        }
+
+        return ResponseEntity.ok().body(countryDto);
+    }
+
+    @GetMapping("/v1/getAllCountry")
+    public ResponseEntity<List<CountryDtoList>> getAllCountry() {
+        List<CountryDtoList> countryDtos = countryServiceImpl.getAllCountry();
+        return ResponseEntity.ok().body(countryDtos);
+    }
+
+    @GetMapping("/v1/getAllCountryByPagination")
+    public Page<CountryDto> getAllCountryByPagination(@RequestParam int pageNumber,
+                                                      @RequestParam int pageSize) {
+        return countryServiceImpl.getAllCountryByPagination(pageNumber, pageSize);
+    }
+
+}
+>>>>>>> daccd45 (Initial commit)

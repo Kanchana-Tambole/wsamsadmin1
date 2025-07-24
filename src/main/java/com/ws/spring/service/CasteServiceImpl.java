@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ws.spring.dto.CasteDto;
+<<<<<<< HEAD
+=======
+import com.ws.spring.dto.CasteDtoList;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.dto.CommonBuilder;
 import com.ws.spring.model.Caste;
 import com.ws.spring.model.Religion;
@@ -42,6 +46,7 @@ public class CasteServiceImpl {
     @Autowired
     private ReligionRepository religionRepository;
 
+<<<<<<< HEAD
     public CasteDto getCasteById(long id) {
         Caste caste = casteRepository.findByCasteId(id);
         return CommonBuilder.buildCasteDto(caste);
@@ -55,11 +60,27 @@ public class CasteServiceImpl {
     }
 
     public Page<CasteDto> getAllCastesByPagination(int pageNumber, int pageSize) {
+=======
+    public CasteDto getCasteById(long casteId) {
+        Caste caste = casteRepository.findByCasteId(casteId);
+        return CommonBuilder.buildCasteDto(caste);
+    }
+
+    public List<CasteDtoList> getAllCaste() {
+        List<Caste> casteList = casteRepository.findAll(Sort.by(Sort.Direction.DESC, "casteId"));
+        return casteList.stream()
+                .map(caste -> new CasteDtoList(caste.getCasteId(), caste.getCasteName()))
+                .collect(Collectors.toList());
+    }
+
+    public Page<CasteDto> getAllCasteByPagination(int pageNumber, int pageSize) {
+>>>>>>> daccd45 (Initial commit)
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("casteId").descending());
         Page<Caste> castePage = casteRepository.findAll(pageable);
         int totalElements = (int) castePage.getTotalElements();
 
         List<CasteDto> dtoList = castePage.stream()
+<<<<<<< HEAD
             .map(caste -> new CasteDto(
                 caste.getCasteId(),
                 caste.getCasteName(),
@@ -69,6 +90,17 @@ public class CasteServiceImpl {
                 caste.getCreatedBy(),
                 caste.getUpdatedBy()
             )).collect(Collectors.toList());
+=======
+                .map(caste -> new CasteDto(
+                        caste.getCasteId(),
+                        caste.getCasteName(),
+                        caste.getReligion(),
+                        caste.getInsertedDate(),
+                        caste.getUpdatedDate(),
+                        caste.getCreatedBy(),
+                        caste.getUpdatedBy()
+                )).collect(Collectors.toList());
+>>>>>>> daccd45 (Initial commit)
 
         return new PageImpl<>(dtoList, pageable, totalElements);
     }
@@ -94,8 +126,15 @@ public class CasteServiceImpl {
 
         try {
             caste.setCasteName(casteDto.getCasteName());
+<<<<<<< HEAD
             Religion religion = religionRepository.findByReligionId(casteDto.getReligion().getReligionId());
             caste.setReligion(religion);
+=======
+
+            Religion religion = religionRepository.findByReligionId(casteDto.getReligion().getReligionId());
+            caste.setReligion(religion);
+
+>>>>>>> daccd45 (Initial commit)
         } catch (Exception e) {
             logger.error("Error while updating Caste {}: {}", casteDto.getCasteName(), e.getMessage());
         }
@@ -106,7 +145,12 @@ public class CasteServiceImpl {
         return casteRepository.save(caste);
     }
 
+<<<<<<< HEAD
     public void deleteCasteById(long id) {
         casteRepository.deleteById(id);
+=======
+    public void deleteCasteById(long casteId) {
+        casteRepository.deleteById(casteId);
+>>>>>>> daccd45 (Initial commit)
     }
 }

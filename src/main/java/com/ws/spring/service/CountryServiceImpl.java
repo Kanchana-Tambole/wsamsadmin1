@@ -1,20 +1,36 @@
 package com.ws.spring.service;
 
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> daccd45 (Initial commit)
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+<<<<<<< HEAD
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+=======
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+>>>>>>> daccd45 (Initial commit)
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+<<<<<<< HEAD
+=======
+
+>>>>>>> daccd45 (Initial commit)
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import com.ws.spring.dto.CommonBuilder;
 import com.ws.spring.dto.CountryDto;
 import com.ws.spring.model.Country;
@@ -121,3 +137,96 @@ import com.ws.spring.repository.UserProfileRepository;
 
 }
 
+=======
+import com.ws.spring.dto.CountryDto;
+import com.ws.spring.dto.CountryDtoList;
+import com.ws.spring.dto.CommonBuilder;
+
+import com.ws.spring.model.Country;
+import com.ws.spring.model.UserProfile;
+
+import com.ws.spring.repository.CountryRepository;
+import com.ws.spring.repository.UserProfileRepository;
+
+@Service
+public class CountryServiceImpl {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @Autowired
+    private CountryRepository countryRepository;
+
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+
+    public CountryDto getCountryByCountryId(long countryId) {
+        Country country = countryRepository.findByCountryId(countryId);
+        return CommonBuilder.buildCountryDto(country);
+    }
+
+    public List<CountryDtoList> getAllCountry() {
+        List<Country> countryList = countryRepository.findAll(Sort.by(Sort.Direction.DESC, "countryId"));
+        return CommonBuilder.buildCountryDtoList(countryList);
+    }
+
+    public Page<CountryDto> getAllCountryByPagination(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("countryId").descending());
+        Page<Country> countryPage = countryRepository.findAll(pageable);
+
+        int totalElements = (int) countryPage.getTotalElements();
+
+        return new PageImpl<>(
+            countryPage.stream()
+                .map(country -> new CountryDto(
+                    country.getCountryId(),
+                    country.getCountryName(),
+                    country.getDescription(),
+                    country.getInsertedDate(),
+                    country.getUpdatedDate(),
+                    country.getCreatedBy(),
+                    country.getUpdatedBy()
+                ))
+                .collect(Collectors.toList()),
+            pageable,
+            totalElements
+        );
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Country createCountry(CountryDto countryDto) {
+        Country country = new Country();
+        BeanUtils.copyProperties(countryDto, country, "createdBy", "updatedBy");
+
+        UserProfile userProfile = userProfileRepository.findByUserId(countryDto.getCreatedBy().getUserId());
+        country.setCreatedBy(userProfile);
+        country.setUpdatedBy(userProfile);
+
+        return countryRepository.save(country);
+    }
+
+    public Country getCountryNameExist(String countryName) {
+        return countryRepository.findByCountryName(countryName);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Country updateCountry(CountryDto countryDto) {
+        Country country = countryRepository.findByCountryId(countryDto.getCountryId());
+
+        try {
+            country.setCountryName(countryDto.getCountryName());
+            country.setDescription(countryDto.getDescription());
+        } catch (Exception e) {
+            logger.error("Error while updating Country {}: {}", countryDto.getCountryName(), e.getMessage());
+        }
+
+        UserProfile userProfile = userProfileRepository.findByUserId(countryDto.getUpdatedBy().getUserId());
+        country.setUpdatedBy(userProfile);
+
+        return countryRepository.save(country);
+    }
+
+    public void deleteCountryById(long countryId) {
+        countryRepository.deleteById(countryId);
+    }
+}
+>>>>>>> daccd45 (Initial commit)

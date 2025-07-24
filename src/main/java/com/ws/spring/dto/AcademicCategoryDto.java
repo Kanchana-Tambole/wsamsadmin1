@@ -17,6 +17,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class AcademicCategoryDto {
+<<<<<<< HEAD
+=======
+ 
+	
+>>>>>>> daccd45 (Initial commit)
 
 	    private long categoryId;
 

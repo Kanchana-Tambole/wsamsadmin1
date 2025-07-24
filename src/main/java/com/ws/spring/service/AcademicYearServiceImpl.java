@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ws.spring.dto.AcademicYearDto;
+<<<<<<< HEAD
+=======
+import com.ws.spring.dto.AcademicYearDtoList;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.dto.CommonBuilder;
 import com.ws.spring.model.AcademicYear;
 import com.ws.spring.model.UserProfile;
@@ -32,10 +36,17 @@ public class AcademicYearServiceImpl {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
+<<<<<<< HEAD
     AcademicYearRepository academicYearRepository;
 
     @Autowired
     UserProfileRepository userProfileRepository;
+=======
+    private AcademicYearRepository academicYearRepository;
+
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+>>>>>>> daccd45 (Initial commit)
 
     public AcademicYearDto getAcademicYearById(long id) {
         AcademicYear year = academicYearRepository.findById(id);
@@ -46,10 +57,17 @@ public class AcademicYearServiceImpl {
         return academicYearRepository.findByName(name);
     }
 
+<<<<<<< HEAD
     public List<AcademicYearDto> getAllAcademicYears() {
         List<AcademicYear> yearList = academicYearRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         return yearList.stream()
                 .map(CommonBuilder::buildAcademicYearDto)
+=======
+    public List<AcademicYearDtoList> getAllAcademicYears() {
+        List<AcademicYear> yearList = academicYearRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return yearList.stream()
+                .map(year -> new AcademicYearDtoList(year.getId(), year.getName()))
+>>>>>>> daccd45 (Initial commit)
                 .collect(Collectors.toList());
     }
 
@@ -85,8 +103,12 @@ public class AcademicYearServiceImpl {
         year.setCreatedBy(user);
         year.setUpdatedBy(user);
 
+<<<<<<< HEAD
         year.setIsCurrent(dto.getIsCurrent()); // triggers status set automatically
 
+=======
+        year.setIsCurrent(dto.getIsCurrent()); // Automatically set status in entity logic
+>>>>>>> daccd45 (Initial commit)
         return academicYearRepository.save(year);
     }
 
@@ -98,7 +120,11 @@ public class AcademicYearServiceImpl {
             year.setName(dto.getName());
             year.setStartDate(dto.getStartDate());
             year.setEndDate(dto.getEndDate());
+<<<<<<< HEAD
             year.setIsCurrent(dto.getIsCurrent()); // triggers status update
+=======
+            year.setIsCurrent(dto.getIsCurrent());
+>>>>>>> daccd45 (Initial commit)
         } catch (Exception e) {
             logger.error("Error while updating AcademicYear {}: {}", dto.getName(), e.getMessage());
         }

@@ -20,6 +20,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ws.spring.dto.BloodGroupDto;
+<<<<<<< HEAD
+=======
+import com.ws.spring.dto.BloodGroupDtoList;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.dto.CommonBuilder;
 import com.ws.spring.model.BloodGroup;
 import com.ws.spring.model.UserProfile;
@@ -32,26 +36,42 @@ public class BloodGroupServiceImpl {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
+<<<<<<< HEAD
     BloodGroupRepository bloodGroupRepository;
 
     @Autowired
     UserProfileRepository userProfileRepository;
+=======
+    private BloodGroupRepository bloodGroupRepository;
+
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+>>>>>>> daccd45 (Initial commit)
 
     public BloodGroupDto getBloodGroupById(long id) {
         BloodGroup group = bloodGroupRepository.findById(id);
         return CommonBuilder.buildBloodGroupDto(group);
     }
 
+<<<<<<< HEAD
     public List<BloodGroupDto> getAllBloodGroups() {
         List<BloodGroup> groupList = bloodGroupRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         return groupList.stream()
             .map(CommonBuilder::buildBloodGroupDto)
             .collect(Collectors.toList());
+=======
+    public List<BloodGroupDtoList> getAllBloodGroups() {
+        List<BloodGroup> groupList = bloodGroupRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return groupList.stream()
+                .map(group -> new BloodGroupDtoList(group.getId(), group.getBloodGroup()))
+                .collect(Collectors.toList());
+>>>>>>> daccd45 (Initial commit)
     }
 
     public Page<BloodGroupDto> getAllBloodGroupsByPagination(int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("id").descending());
         Page<BloodGroup> bloodGroupPage = bloodGroupRepository.findAll(pageable);
+<<<<<<< HEAD
         int totalElements = (int) bloodGroupPage.getTotalElements();
 
         List<BloodGroupDto> dtoList = bloodGroupPage.stream()
@@ -63,6 +83,20 @@ public class BloodGroupServiceImpl {
                 group.getCreatedBy(),
                 group.getUpdatedBy()
             )).collect(Collectors.toList());
+=======
+
+        int totalElements = (int) bloodGroupPage.getTotalElements();
+
+        List<BloodGroupDto> dtoList = bloodGroupPage.stream()
+                .map(group -> new BloodGroupDto(
+                        group.getId(),
+                        group.getBloodGroup(),
+                        group.getInsertedDate(),
+                        group.getUpdatedDate(),
+                        group.getCreatedBy(),
+                        group.getUpdatedBy()
+                )).collect(Collectors.toList());
+>>>>>>> daccd45 (Initial commit)
 
         return new PageImpl<>(dtoList, pageable, totalElements);
     }

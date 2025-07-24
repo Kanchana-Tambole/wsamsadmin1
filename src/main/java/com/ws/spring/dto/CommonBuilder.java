@@ -13,21 +13,42 @@ import com.ws.spring.model.AcademicModule;
 import com.ws.spring.model.AcademicTopic;
 import com.ws.spring.model.AcademicYear;
 import com.ws.spring.model.Advertisement;
+<<<<<<< HEAD
 import com.ws.spring.model.Batch;
 import com.ws.spring.model.BloodGroup;
 import com.ws.spring.model.Caste;
+=======
+import com.ws.spring.model.BankType;
+import com.ws.spring.model.Batch;
+import com.ws.spring.model.BloodGroup;
+import com.ws.spring.model.BoardUniversity;
+import com.ws.spring.model.Caste;
+import com.ws.spring.model.CertificateType;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.model.City;
 import com.ws.spring.model.Country;
 import com.ws.spring.model.Course;
 import com.ws.spring.model.CourseSubject;
 import com.ws.spring.model.Department;
+<<<<<<< HEAD
 import com.ws.spring.model.DocumentType;
 import com.ws.spring.model.FacultyProfile;
+=======
+import com.ws.spring.model.DisabilityType;
+import com.ws.spring.model.DocumentType;
+import com.ws.spring.model.EducationLevel;
+import com.ws.spring.model.EntranceTestSchedule;
+import com.ws.spring.model.FacultyProfile;
+import com.ws.spring.model.FeesCategory;
+import com.ws.spring.model.FeesType;
+import com.ws.spring.model.GradingScheme;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.model.JobDesignation;
 import com.ws.spring.model.Language;
 import com.ws.spring.model.Location;
 import com.ws.spring.model.News;
 import com.ws.spring.model.Occupation;
+<<<<<<< HEAD
 import com.ws.spring.model.Promo;
 import com.ws.spring.model.Qualification;
 import com.ws.spring.model.Religion;
@@ -35,6 +56,20 @@ import com.ws.spring.model.Skill;
 import com.ws.spring.model.State;
 import com.ws.spring.model.StudentProfile;
 import com.ws.spring.model.SuccessStory;
+=======
+import com.ws.spring.model.PaymentMode;
+import com.ws.spring.model.Promo;
+import com.ws.spring.model.Qualification;
+import com.ws.spring.model.Religion;
+import com.ws.spring.model.ScholarshipScheme;
+import com.ws.spring.model.Skill;
+import com.ws.spring.model.State;
+import com.ws.spring.model.StudentProfile;
+import com.ws.spring.model.Subject;
+import com.ws.spring.model.SuccessStory;
+import com.ws.spring.model.TestCenter;
+import com.ws.spring.model.TestType;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.model.UpskillCategory;
 import com.ws.spring.model.UpskillCourse;
 import com.ws.spring.model.UpskillModule;
@@ -43,6 +78,749 @@ import com.ws.spring.model.UserProfile;
 
 public class CommonBuilder {
 	
+<<<<<<< HEAD
+=======
+    public static TestCenterDto buildTestCenterDto(TestCenter center) {
+        if (center == null) {
+            return null;
+        }
+
+        return TestCenterDto.builder()
+                .id(center.getId())
+                .centerName(center.getCenterName())
+                .city(center.getCity())
+                .address(center.getAddress())
+                .contactNumber(center.getContactNumber())
+                .isActive(center.getIsActive())
+                .createdAt(center.getCreatedAt())
+                .updatedAt(center.getUpdatedAt())
+                .createdBy(center.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                center.getCreatedBy().getUserId(),
+                                center.getCreatedBy().getFullName(),
+                                center.getCreatedBy().getUserName(),
+                                center.getCreatedBy().getMobileNumber()))
+                .updatedBy(center.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                center.getUpdatedBy().getUserId(),
+                                center.getUpdatedBy().getFullName(),
+                                center.getUpdatedBy().getUserName(),
+                                center.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static TestCenterDtoList buildTestCenterDataDto(TestCenter center) {
+        if (center == null) {
+            return null;
+        }
+
+        return TestCenterDtoList.builder()
+                .id(center.getId())
+                .centerName(center.getCenterName())
+                .build();
+    }
+
+    public static List<TestCenterDto> buildTestCenterFullDtoList(List<TestCenter> centers) {
+        if (CollectionUtils.isEmpty(centers)) {
+            return null;
+        }
+
+        return centers.stream()
+                .map(CommonBuilder::buildTestCenterDto)
+                .collect(Collectors.toList());
+    }
+
+    public static List<TestCenterDtoList> buildTestCenterDtoList(List<TestCenter> centers) {
+        if (CollectionUtils.isEmpty(centers)) {
+            return null;
+        }
+
+        return centers.stream()
+                .map(CommonBuilder::buildTestCenterDataDto)
+                .collect(Collectors.toList());
+    }
+	
+	
+    public static EntranceTestScheduleDto buildEntranceTestScheduleDto(EntranceTestSchedule schedule) {
+
+        if (schedule == null) {
+            return null;
+        }
+
+        return EntranceTestScheduleDto.builder()
+                .id(schedule.getId())
+                .testDate(schedule.getTestDate())
+                .startTime(schedule.getStartTime())
+                .endTime(schedule.getEndTime())
+                .remarks(schedule.getRemarks())
+                .createdAt(schedule.getCreatedAt())
+                .updatedAt(schedule.getUpdatedAt())
+                .testType(schedule.getTestType() == null ? null
+                        : new TestTypeDtoList(schedule.getTestType().getId(), schedule.getTestType().getTestName()))
+                .testCenter(schedule.getTestCenter() == null ? null
+                        : new TestCenterDtoList(schedule.getTestCenter().getId(), schedule.getTestCenter().getCenterName()))
+                .createdBy(schedule.getCreatedBy() == null ? null
+                        : new UserProfileDtoList(
+                                schedule.getCreatedBy().getUserId(),
+                                schedule.getCreatedBy().getFullName(),
+                                schedule.getCreatedBy().getUserName(),
+                                schedule.getCreatedBy().getMobileNumber()))
+                .updatedBy(schedule.getUpdatedBy() == null ? null
+                        : new UserProfileDtoList(
+                                schedule.getUpdatedBy().getUserId(),
+                                schedule.getUpdatedBy().getFullName(),
+                                schedule.getUpdatedBy().getUserName(),
+                                schedule.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static EntranceTestScheduleDtoList buildEntranceTestScheduleDataDto(EntranceTestSchedule schedule) {
+
+        if (schedule == null) {
+            return null;
+        }
+
+        String testTypeName = schedule.getTestType() != null ? schedule.getTestType().getTestName() : null;
+        String testCenterName = schedule.getTestCenter() != null ? schedule.getTestCenter().getCenterName() : null;
+
+        return EntranceTestScheduleDtoList.builder()
+                .id(schedule.getId())
+                .testTypeName(testTypeName)
+                .testCenterName(testCenterName)
+                .build();
+    }
+
+    public static List<EntranceTestScheduleDto> buildEntranceTestScheduleFullDtoList(List<EntranceTestSchedule> scheduleList) {
+        if (CollectionUtils.isEmpty(scheduleList)) {
+            return null;
+        }
+
+        return scheduleList.stream()
+                .map(CommonBuilder::buildEntranceTestScheduleDto)
+                .collect(Collectors.toList());
+    }
+
+    public static List<EntranceTestScheduleDtoList> buildEntranceTestScheduleMinimalDtoList(List<EntranceTestSchedule> scheduleList) {
+        if (CollectionUtils.isEmpty(scheduleList)) {
+            return null;
+        }
+
+        return scheduleList.stream()
+                .map(CommonBuilder::buildEntranceTestScheduleDataDto)
+                .collect(Collectors.toList());
+    }
+
+	
+	
+    public static TestTypeDto buildTestTypeDto(TestType testType) {
+        if (testType == null) {
+            return null;
+        }
+
+        return TestTypeDto.builder()
+                .id(testType.getId())
+                .testName(testType.getTestName())
+                .description(testType.getDescription())
+                .isActive(testType.getIsActive())
+                .createdAt(testType.getCreatedAt())
+                .updatedAt(testType.getUpdatedAt())
+                .createdBy(testType.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                testType.getCreatedBy().getUserId(),
+                                testType.getCreatedBy().getFullName(),
+                                testType.getCreatedBy().getUserName(),
+                                testType.getCreatedBy().getMobileNumber()))
+                .updatedBy(testType.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                testType.getUpdatedBy().getUserId(),
+                                testType.getUpdatedBy().getFullName(),
+                                testType.getUpdatedBy().getUserName(),
+                                testType.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static TestTypeDtoList buildTestTypeDataDto(TestType testType) {
+        if (testType == null) {
+            return null;
+        }
+
+        return TestTypeDtoList.builder()
+                .id(testType.getId())
+                .testName(testType.getTestName())
+                .build();
+    }
+
+    public static List<TestTypeDtoList> buildTestTypeDtoList(List<TestType> testTypeList) {
+        if (CollectionUtils.isEmpty(testTypeList)) {
+            return null;
+        }
+
+        return testTypeList.stream()
+                .map(CommonBuilder::buildTestTypeDataDto)
+                .collect(Collectors.toList());
+    }
+
+    public static List<TestTypeDto> buildTestTypeDtoFullList(List<TestType> testTypeList) {
+        if (CollectionUtils.isEmpty(testTypeList)) {
+            return null;
+        }
+
+        return testTypeList.stream()
+                .map(CommonBuilder::buildTestTypeDto)
+                .collect(Collectors.toList());
+    }
+	
+	
+    // Build full DisabilityTypeDto
+    public static DisabilityTypeDto buildDisabilityTypeDto(DisabilityType disabilityType) {
+        if (disabilityType == null) {
+            return null;
+        }
+
+        return DisabilityTypeDto.builder()
+                .id(disabilityType.getId())
+                .name(disabilityType.getName())
+                .description(disabilityType.getDescription())
+                .status(disabilityType.isStatus())
+                .insertedDate(disabilityType.getInsertedDate())
+                .updatedDate(disabilityType.getUpdatedDate())
+                .createdBy(disabilityType.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                disabilityType.getCreatedBy().getUserId(),
+                                disabilityType.getCreatedBy().getFullName(),
+                                disabilityType.getCreatedBy().getUserName(),
+                                disabilityType.getCreatedBy().getMobileNumber()))
+                .updatedBy(disabilityType.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                disabilityType.getUpdatedBy().getUserId(),
+                                disabilityType.getUpdatedBy().getFullName(),
+                                disabilityType.getUpdatedBy().getUserName(),
+                                disabilityType.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    // Build lightweight list item DTO
+    public static DisabilityTypeDtoList buildDisabilityTypeDtoListItem(DisabilityType disabilityType) {
+        if (disabilityType == null) {
+            return null;
+        }
+
+        return DisabilityTypeDtoList.builder()
+                .id(disabilityType.getId())
+                .name(disabilityType.getName())
+                .build();
+    }
+
+    // List of lightweight DTOs
+    public static List<DisabilityTypeDtoList> buildDisabilityTypeDtoList(List<DisabilityType> disabilityTypes) {
+        if (CollectionUtils.isEmpty(disabilityTypes)) {
+            return null;
+        }
+
+        return disabilityTypes.stream()
+                .map(CommonBuilder::buildDisabilityTypeDtoListItem)
+                .collect(Collectors.toList());
+    }
+
+    // List of full DTOs
+    public static List<DisabilityTypeDto> buildDisabilityTypeDtos(List<DisabilityType> disabilityTypes) {
+        if (CollectionUtils.isEmpty(disabilityTypes)) {
+            return null;
+        }
+
+        return disabilityTypes.stream()
+                .map(CommonBuilder::buildDisabilityTypeDto)
+                .collect(Collectors.toList());
+    }
+	
+    public static ScholarshipSchemeDto buildScholarshipSchemeDto(ScholarshipScheme scheme) {
+
+        if (null == scheme) {
+            return null;
+        }
+
+        return ScholarshipSchemeDto.builder()
+                .id(scheme.getId())
+                .schemeName(scheme.getSchemeName())
+                .type(scheme.getType())
+                .amount(scheme.getAmount())
+                .eligibility(scheme.getEligibility())
+                .status(scheme.getStatus())
+                .createdAt(scheme.getCreatedAt())
+                .updatedAt(scheme.getUpdatedAt())
+                .createdBy(scheme.getCreatedBy() == null ? null
+                        : new UserProfileDtoList(scheme.getCreatedBy().getUserId(),
+                                scheme.getCreatedBy().getFullName(),
+                                scheme.getCreatedBy().getUserName(),
+                                scheme.getCreatedBy().getMobileNumber()))
+                .updatedBy(scheme.getUpdatedBy() == null ? null
+                        : new UserProfileDtoList(scheme.getUpdatedBy().getUserId(),
+                                scheme.getUpdatedBy().getFullName(),
+                                scheme.getUpdatedBy().getUserName(),
+                                scheme.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static ScholarshipSchemeDtoList buildScholarshipSchemeDataDto(ScholarshipScheme scheme) {
+
+        if (null == scheme) {
+            return null;
+        }
+
+        return ScholarshipSchemeDtoList.builder()
+                .id(scheme.getId())
+                .schemeName(scheme.getSchemeName())
+                .build();
+    }
+
+    public static List<ScholarshipSchemeDtoList> buildScholarshipSchemeDataDtoList(List<ScholarshipScheme> schemeList) {
+
+        if (CollectionUtils.isEmpty(schemeList)) {
+            return null;
+        }
+
+        return schemeList.stream()
+                .map(scheme -> buildScholarshipSchemeDataDto(scheme))
+                .collect(Collectors.toList());
+    }
+
+    public static List<ScholarshipSchemeDto> buildScholarshipSchemeDtoList(List<ScholarshipScheme> schemeList) {
+
+        if (CollectionUtils.isEmpty(schemeList)) {
+            return null;
+        }
+
+        return schemeList.stream()
+                .map(scheme -> buildScholarshipSchemeDto(scheme))
+                .collect(Collectors.toList());
+    }
+	
+	
+    // ✅ Convert single BankType to BankTypeDto
+    public static BankTypeDto buildBankTypeDto(BankType bankType) {
+        if (bankType == null) {
+            return null;
+        }
+
+        return BankTypeDto.builder()
+                .id(bankType.getId())
+                .bankName(bankType.getBankName())
+                .branchName(bankType.getBranchName())
+                .ifscCode(bankType.getIfscCode())
+                .status(bankType.getStatus())
+                .createdAt(bankType.getCreatedAt())
+                .updatedAt(bankType.getUpdatedAt())
+                .createdBy(bankType.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                bankType.getCreatedBy().getUserId(),
+                                bankType.getCreatedBy().getFullName(),
+                                bankType.getCreatedBy().getUserName(),
+                                bankType.getCreatedBy().getMobileNumber()))
+                .updatedBy(bankType.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                bankType.getUpdatedBy().getUserId(),
+                                bankType.getUpdatedBy().getFullName(),
+                                bankType.getUpdatedBy().getUserName(),
+                                bankType.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    // ✅ Convert single BankType to BankTypeDtoList (summary view)
+    public static BankTypeDtoList buildBankTypeDtoList(BankType bankType) {
+        if (bankType == null) {
+            return null;
+        }
+
+        return BankTypeDtoList.builder()
+                .id(bankType.getId())
+                .bankName(bankType.getBankName())
+                .build();
+    }
+
+    // ✅ Convert List<BankType> to List<BankTypeDto>
+    public static List<BankTypeDto> buildBankTypeDtoFullList(List<BankType> bankTypeList) {
+        if (CollectionUtils.isEmpty(bankTypeList)) {
+            return null;
+        }
+
+        return bankTypeList.stream()
+                .map(CommonBuilder::buildBankTypeDto)
+                .collect(Collectors.toList());
+    }
+
+    // ✅ Convert List<BankType> to List<BankTypeDtoList>
+    public static List<BankTypeDtoList> buildBankTypeDtoList(List<BankType> bankTypeList) {
+        if (CollectionUtils.isEmpty(bankTypeList)) {
+            return null;
+        }
+
+        return bankTypeList.stream()
+                .map(CommonBuilder::buildBankTypeDtoList)
+                .collect(Collectors.toList());
+    }
+	
+	
+    public static PaymentModeDto buildPaymentModeDto(PaymentMode paymentMode) {
+
+        if (paymentMode == null) {
+            return null;
+        }
+
+        return PaymentModeDto.builder()
+                .id(paymentMode.getId())
+                .modeName(paymentMode.getModeName())
+                .description(paymentMode.getDescription())
+                .status(paymentMode.getStatus())
+                .insertedDate(paymentMode.getInsertedDate())
+                .updatedDate(paymentMode.getUpdatedDate())
+                .createdBy(paymentMode.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                paymentMode.getCreatedBy().getUserId(),
+                                paymentMode.getCreatedBy().getFullName(),
+                                paymentMode.getCreatedBy().getUserName(),
+                                paymentMode.getCreatedBy().getMobileNumber()))
+                .updatedBy(paymentMode.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                paymentMode.getUpdatedBy().getUserId(),
+                                paymentMode.getUpdatedBy().getFullName(),
+                                paymentMode.getUpdatedBy().getUserName(),
+                                paymentMode.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static PaymentModeDtoList buildPaymentModeDtoList(PaymentMode paymentMode) {
+
+        if (paymentMode == null) {
+            return null;
+        }
+
+        return PaymentModeDtoList.builder()
+                .id(paymentMode.getId())
+                .modeName(paymentMode.getModeName())
+                .build();
+    }
+
+    public static List<PaymentModeDtoList> buildPaymentModeDtoList(List<PaymentMode> paymentModeList) {
+
+        if (CollectionUtils.isEmpty(paymentModeList)) {
+            return null;
+        }
+
+        return paymentModeList.stream()
+                .map(CommonBuilder::buildPaymentModeDtoList)
+                .collect(Collectors.toList());
+    }
+
+    public static List<PaymentModeDto> buildPaymentModeDto(List<PaymentMode> paymentModeList) {
+
+        if (CollectionUtils.isEmpty(paymentModeList)) {
+            return null;
+        }
+
+        return paymentModeList.stream()
+                .map(CommonBuilder::buildPaymentModeDto)
+                .collect(Collectors.toList());
+    }
+	
+	
+    // ✅ Build a single FeesCategoryDto from FeesCategory model
+    public static FeesCategoryDto buildFeesCategoryDto(FeesCategory category) {
+        if (category == null) {
+            return null;
+        }
+
+        return FeesCategoryDto.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .description(category.getDescription())
+                .status(category.isStatus())
+                .createdAt(category.getCreatedAt())
+                .updatedAt(category.getUpdatedAt())
+                .createdBy(category.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                category.getCreatedBy().getUserId(),
+                                category.getCreatedBy().getFullName(),
+                                category.getCreatedBy().getUserName(),
+                                category.getCreatedBy().getMobileNumber()))
+                .updatedBy(category.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                category.getUpdatedBy().getUserId(),
+                                category.getUpdatedBy().getFullName(),
+                                category.getUpdatedBy().getUserName(),
+                                category.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    // ✅ Build a single FeesCategoryDtoList from model
+    public static FeesCategoryDtoList buildFeesCategoryDtoListData(FeesCategory category) {
+        if (category == null) {
+            return null;
+        }
+
+        return FeesCategoryDtoList.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .build();
+    }
+
+    // ✅ Build list of FeesCategoryDto from list of model
+    public static List<FeesCategoryDto> buildFeesCategoryDtoList(List<FeesCategory> categoryList) {
+        if (CollectionUtils.isEmpty(categoryList)) {
+            return null;
+        }
+
+        return categoryList.stream()
+                .map(CommonBuilder::buildFeesCategoryDto)
+                .collect(Collectors.toList());
+    }
+
+    // ✅ Build list of FeesCategoryDtoList from list of model
+    public static List<FeesCategoryDtoList> buildFeesCategoryDtoListData(List<FeesCategory> categoryList) {
+        if (CollectionUtils.isEmpty(categoryList)) {
+            return null;
+        }
+
+        return categoryList.stream()
+                .map(CommonBuilder::buildFeesCategoryDtoListData)
+                .collect(Collectors.toList());
+    }
+	
+	
+	// Converts a FeesType entity to FeesTypeDto
+	public static FeesTypeDto buildFeesTypeDto(FeesType feesType) {
+	    if (feesType == null) {
+	        return null;
+	    }
+
+	    return FeesTypeDto.builder()
+	            .id(feesType.getId())
+	            .name(feesType.getName())
+	            .description(feesType.getDescription())
+	            .status(feesType.isStatus())
+	            .createdAt(feesType.getCreatedAt())
+	            .updatedAt(feesType.getUpdatedAt())
+	            .createdBy(feesType.getCreatedBy() == null ? null :
+	                new UserProfileDtoList(
+	                    feesType.getCreatedBy().getUserId(),
+	                    feesType.getCreatedBy().getFullName(),
+	                    feesType.getCreatedBy().getUserName(),
+	                    feesType.getCreatedBy().getMobileNumber()
+	                ))
+	            .updatedBy(feesType.getUpdatedBy() == null ? null :
+	                new UserProfileDtoList(
+	                    feesType.getUpdatedBy().getUserId(),
+	                    feesType.getUpdatedBy().getFullName(),
+	                    feesType.getUpdatedBy().getUserName(),
+	                    feesType.getUpdatedBy().getMobileNumber()
+	                ))
+	            .build();
+	}
+
+	// Converts a single FeesType entity to a simpler DTO for dropdown or list
+	public static FeesTypeDtoList buildFeesTypeDtoListData(FeesType feesType) {
+	    if (feesType == null) {
+	        return null;
+	    }
+
+	    return FeesTypeDtoList.builder()
+	            .id(feesType.getId())
+	            .name(feesType.getName())
+	            .build();
+	}
+
+	// Converts a list of FeesType entities to list of FeesTypeDtoList
+	public static List<FeesTypeDtoList> buildFeesTypeDtoList(List<FeesType> feesTypeList) {
+	    if (CollectionUtils.isEmpty(feesTypeList)) {
+	        return null;
+	    }
+
+	    return feesTypeList.stream()
+	            .map(CommonBuilder::buildFeesTypeDtoListData)
+	            .collect(Collectors.toList());
+	}
+
+	// Converts a list of FeesType entities to full DTO list (optional, like AcademicModuleDtoList)
+	public static List<FeesTypeDto> buildFeesTypeDtoFullList(List<FeesType> feesTypeList) {
+	    if (CollectionUtils.isEmpty(feesTypeList)) {
+	        return null;
+	    }
+
+	    return feesTypeList.stream()
+	            .map(CommonBuilder::buildFeesTypeDto)
+	            .collect(Collectors.toList());
+	}
+
+	
+	public static SubjectDto buildSubjectDto(Subject subject) {
+	    if (subject == null) {
+	        return null;
+	    }
+
+	    return SubjectDto.builder()
+	            .id(subject.getId())
+	            .subjectName(subject.getSubjectName())
+	            .subjectCode(subject.getSubjectCode())
+	            .insertedDate(subject.getInsertedDate())
+	            .updatedDate(subject.getUpdatedDate())
+	            .createdBy(subject.getCreatedBy() == null ? null :
+	                    new UserProfileDtoList(
+	                            subject.getCreatedBy().getUserId(),
+	                            subject.getCreatedBy().getFullName(),
+	                            subject.getCreatedBy().getUserName(),
+	                            subject.getCreatedBy().getMobileNumber()))
+	            .updatedBy(subject.getUpdatedBy() == null ? null :
+	                    new UserProfileDtoList(
+	                            subject.getUpdatedBy().getUserId(),
+	                            subject.getUpdatedBy().getFullName(),
+	                            subject.getUpdatedBy().getUserName(),
+	                            subject.getUpdatedBy().getMobileNumber()))
+	            .build();
+	}
+
+	public static List<SubjectDto> buildSubjectDtoList(List<Subject> subjectList) {
+	    return subjectList.stream()
+	            .map(CommonBuilder::buildSubjectDto)
+	            .collect(Collectors.toList());
+	}
+	
+	
+	public static GradingSchemeDto buildGradingSchemeDto(GradingScheme scheme) {
+        if (scheme == null) {
+            return null;
+        }
+
+        return GradingSchemeDto.builder()
+                .id(scheme.getId())
+                .schemeName(scheme.getSchemeName())
+                .description(scheme.getDescription())
+                .insertedDate(scheme.getInsertedDate())
+                .updatedDate(scheme.getUpdatedDate())
+                .createdBy(scheme.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                scheme.getCreatedBy().getUserId(),
+                                scheme.getCreatedBy().getFullName(),
+                                scheme.getCreatedBy().getUserName(),
+                                scheme.getCreatedBy().getMobileNumber()))
+                .updatedBy(scheme.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                scheme.getUpdatedBy().getUserId(),
+                                scheme.getUpdatedBy().getFullName(),
+                                scheme.getUpdatedBy().getUserName(),
+                                scheme.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static List<GradingSchemeDto> buildGradingSchemeDtoList(List<GradingScheme> schemeList) {
+        return schemeList.stream()
+                .map(CommonBuilder::buildGradingSchemeDto)
+                .collect(Collectors.toList());
+    }
+	
+	
+	public static BoardUniversityDto buildBoardUniversityDto(BoardUniversity boardUniversity) {
+        if (boardUniversity == null) {
+            return null;
+        }
+
+        return BoardUniversityDto.builder()
+                .id(boardUniversity.getId())
+                .name(boardUniversity.getName())
+                .type(boardUniversity.getType())
+                .insertedDate(boardUniversity.getInsertedDate())
+                .updatedDate(boardUniversity.getUpdatedDate())
+                .createdBy(boardUniversity.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                boardUniversity.getCreatedBy().getUserId(),
+                                boardUniversity.getCreatedBy().getFullName(),
+                                boardUniversity.getCreatedBy().getUserName(),
+                                boardUniversity.getCreatedBy().getMobileNumber()))
+                .updatedBy(boardUniversity.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                boardUniversity.getUpdatedBy().getUserId(),
+                                boardUniversity.getUpdatedBy().getFullName(),
+                                boardUniversity.getUpdatedBy().getUserName(),
+                                boardUniversity.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static List<BoardUniversityDto> buildBoardUniversityDtoList(List<BoardUniversity> boardUniversityList) {
+        return boardUniversityList.stream()
+                .map(CommonBuilder::buildBoardUniversityDto)
+                .collect(Collectors.toList());
+    }
+	
+	
+	
+	
+    public static EducationLevelDto buildEducationLevelDto(EducationLevel educationLevel) {
+        if (educationLevel == null) {
+            return null;
+        }
+
+        return EducationLevelDto.builder()
+                .id(educationLevel.getId())
+                .levelName(educationLevel.getLevelName())
+                .description(educationLevel.getDescription())
+                .insertedDate(educationLevel.getInsertedDate())
+                .updatedDate(educationLevel.getUpdatedDate())
+                .createdBy(educationLevel.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                educationLevel.getCreatedBy().getUserId(),
+                                educationLevel.getCreatedBy().getFullName(),
+                                educationLevel.getCreatedBy().getUserName(),
+                                educationLevel.getCreatedBy().getMobileNumber()))
+                .updatedBy(educationLevel.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                educationLevel.getUpdatedBy().getUserId(),
+                                educationLevel.getUpdatedBy().getFullName(),
+                                educationLevel.getUpdatedBy().getUserName(),
+                                educationLevel.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static List<EducationLevelDto> buildEducationLevelDtoList(List<EducationLevel> educationLevelList) {
+        return educationLevelList.stream()
+                .map(CommonBuilder::buildEducationLevelDto)
+                .collect(Collectors.toList());
+    }
+	
+	
+	
+    public static CertificateTypeDto buildCertificateTypeDto(CertificateType certificateType) {
+        if (certificateType == null) {
+            return null;
+        }
+
+        return CertificateTypeDto.builder()
+                .typeId(certificateType.getTypeId())
+                .typeCode(certificateType.getTypeCode())
+                .certificateName(certificateType.getCertificateName())
+                .templatePath(certificateType.getTemplatePath())
+                .isPrintable(certificateType.isPrintable())
+                .insertedDate(certificateType.getInsertedDate())
+                .updatedDate(certificateType.getUpdatedDate())
+                .createdBy(certificateType.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                certificateType.getCreatedBy().getUserId(),
+                                certificateType.getCreatedBy().getFullName(),
+                                certificateType.getCreatedBy().getUserName(),
+                                certificateType.getCreatedBy().getMobileNumber()))
+                .updatedBy(certificateType.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(
+                                certificateType.getUpdatedBy().getUserId(),
+                                certificateType.getUpdatedBy().getFullName(),
+                                certificateType.getUpdatedBy().getUserName(),
+                                certificateType.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    public static List<CertificateTypeDto> buildCertificateTypeDtoList(List<CertificateType> certificateTypeList) {
+        return certificateTypeList.stream()
+                .map(CommonBuilder::buildCertificateTypeDto)
+                .collect(Collectors.toList());
+    }
+	
+>>>>>>> daccd45 (Initial commit)
 	
 	
 	public static DocumentTypeDto buildDocumentTypeDto(DocumentType documentType) {
@@ -78,6 +856,7 @@ public class CommonBuilder {
 	            .map(CommonBuilder::buildDocumentTypeDto)
 	            .collect(Collectors.toList());
 	}
+<<<<<<< HEAD
 
 	
 	
@@ -123,6 +902,78 @@ public class CommonBuilder {
     }
 	
 	
+=======
+	
+	
+	// Full DTO (AcademicYearDto)
+	public static AcademicYearDto buildAcademicYearDto(AcademicYear academicYear) {
+	    if (academicYear == null) {
+	        return null;
+	    }
+
+	    return AcademicYearDto.builder()
+	            .id(academicYear.getId())
+	            .name(academicYear.getName())
+	            .startDate(academicYear.getStartDate())
+	            .endDate(academicYear.getEndDate())
+	            .isCurrent(academicYear.getIsCurrent())
+	            .status(academicYear.getStatus())
+	            .insertedDate(academicYear.getInsertedDate())
+	            .updatedDate(academicYear.getUpdatedDate())
+	            .createdBy(academicYear.getCreatedBy() == null ? null
+	                    : UserProfileDtoList.builder()
+	                        .userId(academicYear.getCreatedBy().getUserId())
+	                        .fullName(academicYear.getCreatedBy().getFullName())
+	                        .userName(academicYear.getCreatedBy().getUserName())
+	                        .mobileNumber(academicYear.getCreatedBy().getMobileNumber())
+	                        .build())
+	            .updatedBy(academicYear.getUpdatedBy() == null ? null
+	                    : UserProfileDtoList.builder()
+	                        .userId(academicYear.getUpdatedBy().getUserId())
+	                        .fullName(academicYear.getUpdatedBy().getFullName())
+	                        .userName(academicYear.getUpdatedBy().getUserName())
+	                        .mobileNumber(academicYear.getUpdatedBy().getMobileNumber())
+	                        .build())
+	            .build();
+	}
+
+	// Light DTO (AcademicYearDtoList: id + name only)
+	public static AcademicYearDtoList buildAcademicYearDtoList(AcademicYear academicYear) {
+	    if (academicYear == null) {
+	        return null;
+	    }
+
+	    return AcademicYearDtoList.builder()
+	            .id(academicYear.getId())
+	            .name(academicYear.getName())
+	            .build();
+	}
+
+	// Full DTO list
+	public static List<AcademicYearDto> buildAcademicYearDtoList(List<AcademicYear> academicYearList) {
+	    if (CollectionUtils.isEmpty(academicYearList)) {
+	        return null;
+	    }
+
+	    return academicYearList.stream()
+	            .map(CommonBuilder::buildAcademicYearDto)
+	            .collect(Collectors.toList());
+	}
+
+	// Light DTO list
+	public static List<AcademicYearDtoList> buildAcademicYearDtoListLite(List<AcademicYear> academicYearList) {
+	    if (CollectionUtils.isEmpty(academicYearList)) {
+	        return null;
+	    }
+
+	    return academicYearList.stream()
+	            .map(CommonBuilder::buildAcademicYearDtoList)
+	            .collect(Collectors.toList());
+	}
+
+	
+	// Full DTO (ReligionDto)
+>>>>>>> daccd45 (Initial commit)
 	public static ReligionDto buildReligionDto(Religion religion) {
 	    if (religion == null) {
 	        return null;
@@ -133,6 +984,7 @@ public class CommonBuilder {
 	            .religionName(religion.getReligionName())
 	            .insertedDate(religion.getInsertedDate())
 	            .updatedDate(religion.getUpdatedDate())
+<<<<<<< HEAD
 	            .createdBy(religion.getCreatedBy() == null ? null :
 	                    UserProfileDtoList.builder()
 	                            .userId(religion.getCreatedBy().getUserId())
@@ -155,13 +1007,70 @@ public class CommonBuilder {
 	        return null;
 	    }
 	    return religions.stream()
+=======
+	            .createdBy(religion.getCreatedBy() == null ? null
+	                    : UserProfileDtoList.builder()
+	                        .userId(religion.getCreatedBy().getUserId())
+	                        .fullName(religion.getCreatedBy().getFullName())
+	                        .userName(religion.getCreatedBy().getUserName())
+	                        .mobileNumber(religion.getCreatedBy().getMobileNumber())
+	                        .build())
+	            .updatedBy(religion.getUpdatedBy() == null ? null
+	                    : UserProfileDtoList.builder()
+	                        .userId(religion.getUpdatedBy().getUserId())
+	                        .fullName(religion.getUpdatedBy().getFullName())
+	                        .userName(religion.getUpdatedBy().getUserName())
+	                        .mobileNumber(religion.getUpdatedBy().getMobileNumber())
+	                        .build())
+	            .build();
+	}
+
+	// Light DTO (ReligionDtoList: id + name only)
+	public static ReligionDtoList buildReligionDtoList(Religion religion) {
+	    if (religion == null) {
+	        return null;
+	    }
+
+	    return ReligionDtoList.builder()
+	            .religionId(religion.getReligionId())
+	            .religionName(religion.getReligionName())
+	            .build();
+	}
+
+	// Full DTO list
+	public static List<ReligionDto> buildReligionDtoList(List<Religion> religionList) {
+	    if (CollectionUtils.isEmpty(religionList)) {
+	        return null;
+	    }
+
+	    return religionList.stream()
+>>>>>>> daccd45 (Initial commit)
 	            .map(CommonBuilder::buildReligionDto)
 	            .collect(Collectors.toList());
 	}
 
+<<<<<<< HEAD
 	
 	
 	
+=======
+	// Light DTO list
+	public static List<ReligionDtoList> buildReligionDtoListLite(List<Religion> religionList) {
+	    if (CollectionUtils.isEmpty(religionList)) {
+	        return null;
+	    }
+
+	    return religionList.stream()
+	            .map(CommonBuilder::buildReligionDtoList)
+	            .collect(Collectors.toList());
+	}
+
+
+	
+	
+	
+    // Full DTO builder
+>>>>>>> daccd45 (Initial commit)
     public static CasteDto buildCasteDto(Caste caste) {
         if (caste == null) {
             return null;
@@ -174,6 +1083,7 @@ public class CommonBuilder {
                 .updatedDate(caste.getUpdatedDate())
                 .religion(caste.getReligion() == null ? null :
                         ReligionDto.builder()
+<<<<<<< HEAD
                             .religionId(caste.getReligion().getReligionId())
                             .religionName(caste.getReligion().getReligionName())
                             .insertedDate(caste.getReligion().getInsertedDate())
@@ -196,14 +1106,58 @@ public class CommonBuilder {
                 .build();
     }
 
+=======
+                                .religionId(caste.getReligion().getReligionId())
+                                .religionName(caste.getReligion().getReligionName())
+                                .insertedDate(caste.getReligion().getInsertedDate())
+                                .updatedDate(caste.getReligion().getUpdatedDate())
+                                .createdBy(caste.getReligion().getCreatedBy() == null ? null :
+                                        UserProfileDtoList.builder()
+                                                .userId(caste.getReligion().getCreatedBy().getUserId())
+                                                .fullName(caste.getReligion().getCreatedBy().getFullName())
+                                                .userName(caste.getReligion().getCreatedBy().getUserName())
+                                                .mobileNumber(caste.getReligion().getCreatedBy().getMobileNumber())
+                                                .build())
+                                .updatedBy(caste.getReligion().getUpdatedBy() == null ? null :
+                                        UserProfileDtoList.builder()
+                                                .userId(caste.getReligion().getUpdatedBy().getUserId())
+                                                .fullName(caste.getReligion().getUpdatedBy().getFullName())
+                                                .userName(caste.getReligion().getUpdatedBy().getUserName())
+                                                .mobileNumber(caste.getReligion().getUpdatedBy().getMobileNumber())
+                                                .build())
+                                .build())
+                .createdBy(caste.getCreatedBy() == null ? null :
+                        UserProfileDtoList.builder()
+                                .userId(caste.getCreatedBy().getUserId())
+                                .fullName(caste.getCreatedBy().getFullName())
+                                .userName(caste.getCreatedBy().getUserName())
+                                .mobileNumber(caste.getCreatedBy().getMobileNumber())
+                                .build())
+                .updatedBy(caste.getUpdatedBy() == null ? null :
+                        UserProfileDtoList.builder()
+                                .userId(caste.getUpdatedBy().getUserId())
+                                .fullName(caste.getUpdatedBy().getFullName())
+                                .userName(caste.getUpdatedBy().getUserName())
+                                .mobileNumber(caste.getUpdatedBy().getMobileNumber())
+                                .build())
+                .build();
+    }
+
+    // Full DTO list
+>>>>>>> daccd45 (Initial commit)
     public static List<CasteDto> buildCasteDtoList(List<Caste> casteList) {
         if (CollectionUtils.isEmpty(casteList)) {
             return null;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> daccd45 (Initial commit)
         return casteList.stream()
                 .map(CommonBuilder::buildCasteDto)
                 .collect(Collectors.toList());
     }
+<<<<<<< HEAD
 	
 	
 	
@@ -242,12 +1196,106 @@ public class CommonBuilder {
 		}
 		return bloodGroupList.stream().map(bloodGroup -> buildBloodGroupDto(bloodGroup)).collect(Collectors.toList());
 	}
+=======
+
+    // Light DTO builder
+    public static CasteDtoList buildCasteDtoLite(Caste caste) {
+        if (caste == null) {
+            return null;
+        }
+
+        return CasteDtoList.builder()
+                .casteId(caste.getCasteId())
+                .casteName(caste.getCasteName())
+                .build();
+    }
+
+    // Light DTO list
+    public static List<CasteDtoList> buildCasteDtoListLite(List<Caste> casteList) {
+        if (CollectionUtils.isEmpty(casteList)) {
+            return null;
+        }
+
+        return casteList.stream()
+                .map(CommonBuilder::buildCasteDtoLite)
+                .collect(Collectors.toList());
+    }
+>>>>>>> daccd45 (Initial commit)
 
 	
 	
 	
 	
+<<<<<<< HEAD
 	public static BatchDto buildBatchDto(Batch batch) {
+=======
+    public static BloodGroupDto buildBloodGroupDto(BloodGroup bloodGroup) {
+        if (bloodGroup == null) {
+            return null;
+        }
+
+        return BloodGroupDto.builder()
+                .id(bloodGroup.getId())
+                .bloodGroup(bloodGroup.getBloodGroup())
+                .insertedDate(bloodGroup.getInsertedDate())
+                .updatedDate(bloodGroup.getUpdatedDate())
+                .createdBy(bloodGroup.getCreatedBy() == null ? null
+                        : UserProfileDtoList.builder()
+                            .userId(bloodGroup.getCreatedBy().getUserId())
+                            .fullName(bloodGroup.getCreatedBy().getFullName())
+                            .userName(bloodGroup.getCreatedBy().getUserName())
+                            .mobileNumber(bloodGroup.getCreatedBy().getMobileNumber())
+                            .build())
+                .updatedBy(bloodGroup.getUpdatedBy() == null ? null
+                        : UserProfileDtoList.builder()
+                            .userId(bloodGroup.getUpdatedBy().getUserId())
+                            .fullName(bloodGroup.getUpdatedBy().getFullName())
+                            .userName(bloodGroup.getUpdatedBy().getUserName())
+                            .mobileNumber(bloodGroup.getUpdatedBy().getMobileNumber())
+                            .build())
+                .build();
+    }
+
+    // Light DTO (id + name only)
+    public static BloodGroupDtoList buildBloodGroupDtoList(BloodGroup bloodGroup) {
+        if (bloodGroup == null) {
+            return null;
+        }
+
+        return BloodGroupDtoList.builder()
+                .id(bloodGroup.getId())
+                .bloodGroup(bloodGroup.getBloodGroup())
+                .build();
+    }
+
+    // Full DTO list
+    public static List<BloodGroupDto> buildBloodGroupDtoList(List<BloodGroup> bloodGroupList) {
+        if (CollectionUtils.isEmpty(bloodGroupList)) {
+            return null;
+        }
+
+        return bloodGroupList.stream()
+                .map(CommonBuilder::buildBloodGroupDto)
+                .collect(Collectors.toList());
+    }
+
+    // Light DTO list
+    public static List<BloodGroupDtoList> buildBloodGroupDtoListLite(List<BloodGroup> bloodGroupList) {
+        if (CollectionUtils.isEmpty(bloodGroupList)) {
+            return null;
+        }
+
+        return bloodGroupList.stream()
+                .map(CommonBuilder::buildBloodGroupDtoList)
+                .collect(Collectors.toList());
+    }
+
+	
+	
+	
+	
+    public static BatchDto buildBatchDto(Batch batch) {
+>>>>>>> daccd45 (Initial commit)
         if (batch == null) {
             return null;
         }
@@ -258,6 +1306,7 @@ public class CommonBuilder {
                 .description(batch.getDescription())
                 .insertedDate(batch.getInsertedDate())
                 .updatedDate(batch.getUpdatedDate())
+<<<<<<< HEAD
                 .createdBy(batch.getCreatedBy() == null ? null :
                     new com.ws.spring.dto.UserProfileDtoList(
                         batch.getCreatedBy().getUserId(),
@@ -275,6 +1324,37 @@ public class CommonBuilder {
 
     // Build list of BatchDto from list of Batch
     public static List<BatchDto> buildBatchDtoList(List<Batch> batchList) {
+=======
+                .createdBy(batch.getCreatedBy() == null ? null
+                        : UserProfileDtoList.builder()
+                            .userId(batch.getCreatedBy().getUserId())
+                            .fullName(batch.getCreatedBy().getFullName())
+                            .userName(batch.getCreatedBy().getUserName())
+                            .mobileNumber(batch.getCreatedBy().getMobileNumber())
+                            .build())
+                .updatedBy(batch.getUpdatedBy() == null ? null
+                        : UserProfileDtoList.builder()
+                            .userId(batch.getUpdatedBy().getUserId())
+                            .fullName(batch.getUpdatedBy().getFullName())
+                            .userName(batch.getUpdatedBy().getUserName())
+                            .mobileNumber(batch.getUpdatedBy().getMobileNumber())
+                            .build())
+                .build();
+    }
+
+    public static BatchDtoList buildBatchDtoList(Batch batch) {
+        if (batch == null) {
+            return null;
+        }
+
+        return BatchDtoList.builder()
+                .batchId(batch.getBatchId())
+                .batchName(batch.getBatchName())
+                .build();
+    }
+
+    public static List<BatchDto> buildBatchDtoListFull(List<Batch> batchList) {
+>>>>>>> daccd45 (Initial commit)
         if (CollectionUtils.isEmpty(batchList)) {
             return null;
         }
@@ -283,6 +1363,19 @@ public class CommonBuilder {
                 .map(CommonBuilder::buildBatchDto)
                 .collect(Collectors.toList());
     }
+<<<<<<< HEAD
+=======
+
+    public static List<BatchDtoList> buildBatchDtoListLite(List<Batch> batchList) {
+        if (CollectionUtils.isEmpty(batchList)) {
+            return null;
+        }
+
+        return batchList.stream()
+                .map(CommonBuilder::buildBatchDtoList)
+                .collect(Collectors.toList());
+    }
+>>>>>>> daccd45 (Initial commit)
 	
 	
 	
@@ -364,6 +1457,7 @@ public class CommonBuilder {
                 .collect(Collectors.toList());
     }
 	
+<<<<<<< HEAD
 	public static StudentProfileDto buildStudentProfileDto(StudentProfile student) {
 	    return buildStudentProfileDto(student, true, true);
 	}
@@ -415,6 +1509,83 @@ public class CommonBuilder {
 	}
 
 	
+=======
+    // Full DTO with toggle for relations
+    public static StudentProfileDto buildStudentProfileDto(StudentProfile profile, boolean loadRelations) {
+        if (profile == null) return null;
+
+        return StudentProfileDto.builder()
+                .id(profile.getId())
+                .firstName(profile.getFirstName())
+                .middleName(profile.getMiddleName())
+                .lastName(profile.getLastName())
+                .gender(profile.getGender())
+                .fatherName(profile.getFatherName())
+                .motherName(profile.getMotherName())
+                .insertedDate(profile.getInsertedDate())
+                .updatedDate(profile.getUpdatedDate())
+                .fileName(profile.getFileName()) // ✅ new
+                .filePath(profile.getFilePath()) // ✅ new
+                .course(loadRelations ? CommonBuilder.buildCourseDtoList(profile.getCourse()) : null)
+                .courseSubject(loadRelations ? CommonBuilder.buildCourseSubjectDtoListLight(profile.getCourseSubject()) : null)
+                .bloodGroup(loadRelations ? CommonBuilder.buildBloodGroupDtoList(profile.getBloodGroup()) : null)
+                .batch(loadRelations ? CommonBuilder.buildBatchDtoList(profile.getBatch()) : null)
+                .academicYear(loadRelations ? CommonBuilder.buildAcademicYearDtoList(profile.getAcademicYear()) : null)
+                .country(loadRelations ? CommonBuilder.buildCountryDtoListLight(profile.getCountry()) : null)
+                .religion(loadRelations ? CommonBuilder.buildReligionDtoList(profile.getReligion()) : null)
+                .caste(loadRelations ? CommonBuilder.buildCasteDtoLite( profile.getCaste()) : null)
+                .state(loadRelations ? CommonBuilder.buildStateDtoListData(profile.getState()) : null)
+                .city(loadRelations ? CommonBuilder.buildCityDtoListData(profile.getCity()) : null)
+                .createdBy(profile.getCreatedBy() == null ? null :
+                        new UserProfileDtoList(profile.getCreatedBy().getUserId(),
+                                profile.getCreatedBy().getFullName(),
+                                profile.getCreatedBy().getUserName(),
+                                profile.getCreatedBy().getMobileNumber()))
+                .updatedBy(profile.getUpdatedBy() == null ? null :
+                        new UserProfileDtoList(profile.getUpdatedBy().getUserId(),
+                                profile.getUpdatedBy().getFullName(),
+                                profile.getUpdatedBy().getUserName(),
+                                profile.getUpdatedBy().getMobileNumber()))
+                .build();
+    }
+
+    // Shortcut for full load
+    public static StudentProfileDto buildStudentProfileDto(StudentProfile profile) {
+        return buildStudentProfileDto(profile, true);
+    }
+
+    // Light DTO
+    public static StudentProfileDtoList buildStudentProfileDtoList(StudentProfile profile) {
+        if (profile == null) return null;
+
+        return StudentProfileDtoList.builder()
+                .id(profile.getId())
+                .firstName(profile.getFirstName())
+                .lastName(profile.getLastName())
+                .build();
+    }
+
+    public static List<StudentProfileDto> buildStudentProfileDtoListFull(List<StudentProfile> list) {
+        if (CollectionUtils.isEmpty(list)) return null;
+
+        return list.stream()
+                .map(CommonBuilder::buildStudentProfileDto) // use the correct class here
+                .collect(Collectors.toList());
+    }
+
+    // List of light DTOs
+    public static List<StudentProfileDtoList> buildStudentProfileDtoList(List<StudentProfile> list) {
+        if (CollectionUtils.isEmpty(list)) return null;
+
+        return list.stream()
+                .map(CommonBuilder::buildStudentProfileDtoList) // use the correct class here
+                .collect(Collectors.toList());
+    }
+
+
+	
+ // Full DTO
+>>>>>>> daccd45 (Initial commit)
     public static CourseDto buildCourseDto(Course course) {
         return buildCourseDto(course, true);
     }
@@ -436,11 +1607,45 @@ public class CommonBuilder {
                 .build();
     }
 
+<<<<<<< HEAD
     public static List<CourseDto> buildCourseDtoList(List<Course> courseList) {
         if (CollectionUtils.isEmpty(courseList)) return null;
         return courseList.stream().map(CommonBuilder::buildCourseDto).collect(Collectors.toList());
     }
 
+=======
+    // Light DTO
+    public static CourseDtoList buildCourseDtoList(Course course) {
+        if (course == null) return null;
+
+        return CourseDtoList.builder()
+                .courseId(course.getCourseId())
+                .courseName(course.getCourseName())
+                .build();
+    }
+
+    // Full DTO list
+    public static List<CourseDto> buildCourseDtoListFull(List<Course> courseList) {
+        if (CollectionUtils.isEmpty(courseList)) return null;
+
+        return courseList.stream()
+                .map(CommonBuilder::buildCourseDto)
+                .collect(Collectors.toList());
+    }
+
+    // Light DTO list
+    public static List<CourseDtoList> buildCourseDtoList(List<Course> courseList) {
+        if (CollectionUtils.isEmpty(courseList)) return null;
+
+        return courseList.stream()
+                .map(CommonBuilder::buildCourseDtoList)
+                .collect(Collectors.toList());
+    }
+
+
+
+ // Full DTO
+>>>>>>> daccd45 (Initial commit)
     public static CourseSubjectDto buildCourseSubjectDto(CourseSubject subject) {
         return buildCourseSubjectDto(subject, true);
     }
@@ -451,6 +1656,7 @@ public class CommonBuilder {
         return CourseSubjectDto.builder()
                 .courseSubjectId(subject.getCourseSubjectId())
                 .subjectName(subject.getSubjectName())
+<<<<<<< HEAD
                 .course(loadCourse && subject.getCourse() != null ? buildCourseDto(subject.getCourse(), false) : null)
                 .build();
     }
@@ -460,6 +1666,44 @@ public class CommonBuilder {
         return subjectList.stream().map(CommonBuilder::buildCourseSubjectDto).collect(Collectors.toList());
     }
 
+=======
+                .course(loadCourse && subject.getCourse() != null 
+                    ? buildCourseDtoList(subject.getCourse()) // ✅ FIXED
+                    : null)
+                .build();
+    }
+
+
+    // Light DTO
+    public static CourseSubjectDtoList buildCourseSubjectDtoListLight(CourseSubject subject) {
+        if (subject == null) return null;
+
+        return CourseSubjectDtoList.builder()
+                .courseSubjectId(subject.getCourseSubjectId())
+                .subjectName(subject.getSubjectName())
+                .build();
+    }
+
+    // Full list
+    public static List<CourseSubjectDto> buildCourseSubjectDtoListFull(List<CourseSubject> subjectList) {
+        if (CollectionUtils.isEmpty(subjectList)) return null;
+
+        return subjectList.stream()
+                .map(CommonBuilder::buildCourseSubjectDto)
+                .collect(Collectors.toList());
+    }
+
+    // Light list
+    public static List<CourseSubjectDtoList> buildCourseSubjectDtoListLight(List<CourseSubject> subjectList) {
+        if (CollectionUtils.isEmpty(subjectList)) return null;
+
+        return subjectList.stream()
+                .map(CommonBuilder::buildCourseSubjectDtoListLight)
+                .collect(Collectors.toList());
+    }
+
+
+>>>>>>> daccd45 (Initial commit)
 	
 
 	    
@@ -690,6 +1934,7 @@ public class CommonBuilder {
 	}
 
 	
+<<<<<<< HEAD
 	public static CityDto buildCityDto(City city) {
 		// TODO Auto-generated method stub
 		if (null == city) {
@@ -780,6 +2025,207 @@ public class CommonBuilder {
 				.build();
 	}
 
+=======
+    // Convert single City entity to full CityDto
+    // Convert single City entity to full CityDto
+    public static CityDto buildCityDto(City city) {
+        if (city == null) {
+            return null;
+        }
+
+        return CityDto.builder()
+                .cityId(city.getCityId())
+                .cityName(city.getCityName())
+                .pincode(city.getPincode())
+                .description(city.getDescription())
+                .insertedDate(city.getInsertedDate())
+                .updatedDate(city.getUpdatedDate())
+                .createdBy(city.getCreatedBy() == null ? null :
+                    new UserProfileDtoList(
+                        city.getCreatedBy().getUserId(),
+                        city.getCreatedBy().getFullName(),
+                        city.getCreatedBy().getUserName(),
+                        city.getCreatedBy().getMobileNumber()))
+                .updatedBy(city.getUpdatedBy() == null ? null :
+                    new UserProfileDtoList(
+                        city.getUpdatedBy().getUserId(),
+                        city.getUpdatedBy().getFullName(),
+                        city.getUpdatedBy().getUserName(),
+                        city.getUpdatedBy().getMobileNumber()))
+                .state(city.getState() == null ? null :
+                    new StateDtoList(
+                        city.getState().getStateId(),
+                        city.getState().getStateName()))
+                .build();
+    }
+
+    // Convert single City entity to lightweight CityDtoList
+    public static CityDtoList buildCityDtoListData(City city) {
+        if (city == null) {
+            return null;
+        }
+
+        return CityDtoList.builder()
+                .cityId(city.getCityId())
+                .cityName(city.getCityName())
+                .pincode(city.getPincode())
+                .build();
+    }
+
+    // Convert List<City> to List<CityDto>
+    public static List<CityDto> buildCityDtoFullList(List<City> cityList) {
+        if (CollectionUtils.isEmpty(cityList)) {
+            return null;
+        }
+
+        return cityList.stream()
+                .map(CommonBuilder::buildCityDto)
+                .collect(Collectors.toList());
+    }
+
+    // Convert List<City> to List<CityDtoList> (used in getAllCities())
+    public static List<CityDtoList> buildCityDtoList(List<City> cityList) {
+        if (CollectionUtils.isEmpty(cityList)) {
+            return null;
+        }
+
+        return cityList.stream()
+                .map(CommonBuilder::buildCityDtoListData)
+                .collect(Collectors.toList());
+    }
+	
+	
+    // Full DTO
+    public static CountryDto buildCountryDto(Country country) {
+        return buildCountryDto(country, true);
+    }
+
+    public static CountryDto buildCountryDto(Country country, boolean loadUserProfiles) {
+        if (country == null) return null;
+
+        return CountryDto.builder()
+                .countryId(country.getCountryId())
+                .countryName(country.getCountryName())
+                .description(country.getDescription())
+                .insertedDate(country.getInsertedDate())
+                .updatedDate(country.getUpdatedDate())
+                .createdBy(loadUserProfiles && country.getCreatedBy() != null
+                        ? UserProfileDtoList.builder()
+                            .userId(country.getCreatedBy().getUserId())
+                            .fullName(country.getCreatedBy().getFullName())
+                            .userName(country.getCreatedBy().getUserName())
+                            .mobileNumber(country.getCreatedBy().getMobileNumber())
+                            .build()
+                        : null)
+                .updatedBy(loadUserProfiles && country.getUpdatedBy() != null
+                        ? UserProfileDtoList.builder()
+                            .userId(country.getUpdatedBy().getUserId())
+                            .fullName(country.getUpdatedBy().getFullName())
+                            .userName(country.getUpdatedBy().getUserName())
+                            .mobileNumber(country.getUpdatedBy().getMobileNumber())
+                            .build()
+                        : null)
+                .build();
+    }
+
+    // ✅ Fix: Add this method to resolve "undefined for the type CommonBuilder"
+    public static CountryDtoList buildCountryDtoList(Country country) {
+        return buildCountryDtoListLight(country); // Just reuses the light version
+    }
+
+    // Light DTO
+    public static CountryDtoList buildCountryDtoListLight(Country country) {
+        if (country == null) return null;
+
+        return CountryDtoList.builder()
+                .countryId(country.getCountryId())
+                .countryName(country.getCountryName())
+                .build();
+    }
+
+    // Full list
+    public static List<CountryDto> buildCountryDtoListFull(List<Country> countryList) {
+        if (CollectionUtils.isEmpty(countryList)) return null;
+
+        return countryList.stream()
+                .map(CommonBuilder::buildCountryDto)
+                .collect(Collectors.toList());
+    }
+
+    // Light list
+    public static List<CountryDtoList> buildCountryDtoListLight(List<Country> countryList) {
+        if (CollectionUtils.isEmpty(countryList)) return null;
+
+        return countryList.stream()
+                .map(CommonBuilder::buildCountryDtoListLight)
+                .collect(Collectors.toList());
+    }
+    // Optional: Full method for list of light Dto (shortcut)
+    public static List<CountryDtoList> buildCountryDtoList(List<Country> countryList) {
+        return buildCountryDtoListLight(countryList);
+    }
+    
+    
+    
+    
+    // Convert single State to StateDto
+    // Build detailed StateDto with optional user profile loading
+    // Convert single State to full StateDto with UserProfile association (optional)
+    public static StateDto buildStateDto(State state, boolean loadUserProfiles) {
+        if (state == null) return null;
+
+        return StateDto.builder()
+                .stateId(state.getStateId())
+                .stateName(state.getStateName())
+                .description(state.getDescription())
+                .insertedDate(state.getInsertedDate())
+                .updatedDate(state.getUpdatedDate())
+                .createdBy(loadUserProfiles && state.getCreatedBy() != null
+                        ? buildUserProfileDtoList(state.getCreatedBy())
+                        : null)
+                .updatedBy(loadUserProfiles && state.getUpdatedBy() != null
+                        ? buildUserProfileDtoList(state.getUpdatedBy())
+                        : null)
+                .country(state.getCountry() != null
+                ? buildCountryDtoList(state.getCountry())
+                : null) // ✅ Add this line to set country properly
+                .build();
+    }
+
+    // Convert single State to StateDtoList (lightweight)
+    public static StateDtoList buildStateDtoListData(State state) {
+        if (state == null) return null;
+
+        return StateDtoList.builder()
+                .stateId(state.getStateId())
+                .stateName(state.getStateName())
+                .build();
+    }
+
+    // Overloaded method with default: load user profiles = true
+    public static StateDto buildStateDto(State state) {
+        return buildStateDto(state, true);
+    }
+
+    // Convert list of State to list of StateDtoList
+    public static List<StateDtoList> buildStateDtoList(List<State> stateList) {
+        return stateList.stream()
+                .map(CommonBuilder::buildStateDtoListData)
+                .collect(Collectors.toList());
+    }
+
+    // Convert UserProfile to UserProfileDtoList (minimal user info)
+    public static UserProfileDtoList buildUserProfileDtoList(UserProfile user) {
+        if (user == null) return null;
+
+        return UserProfileDtoList.builder()
+                .userId(user.getUserId())
+                .fullName(user.getFullName())
+                .userName(user.getUserName())
+                .mobileNumber(user.getMobileNumber())
+                .build();
+    }
+>>>>>>> daccd45 (Initial commit)
 	
 	
 

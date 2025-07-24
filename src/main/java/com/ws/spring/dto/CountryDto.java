@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+<<<<<<< HEAD
 
 
 	@Data
@@ -130,3 +131,68 @@ import lombok.NoArgsConstructor;
 
 	}
 
+=======
+@Data
+@Builder
+@NoArgsConstructor
+public class CountryDto {
+
+    private long countryId;
+
+    private String countryName;
+
+    private String description;
+
+    private LocalDateTime insertedDate;
+
+    private LocalDateTime updatedDate;
+
+    private UserProfileDtoList createdBy;
+
+    private UserProfileDtoList updatedBy;
+
+    public CountryDto(long countryId, String countryName, String description, LocalDateTime insertedDate,
+                      LocalDateTime updatedDate, UserProfile createdBy, UserProfile updatedBy) {
+        super();
+        this.countryId = countryId;
+        this.countryName = countryName;
+        this.description = description;
+        this.insertedDate = insertedDate;
+        this.updatedDate = updatedDate;
+
+        if (createdBy == null) {
+            this.createdBy = null;
+        } else {
+            this.createdBy = new UserProfileDtoList(
+                    createdBy.getUserId(),
+                    createdBy.getFullName(),
+                    createdBy.getUserName(),
+                    createdBy.getMobileNumber()
+            );
+        }
+
+        if (updatedBy == null) {
+            this.updatedBy = null;
+        } else {
+            this.updatedBy = new UserProfileDtoList(
+                    updatedBy.getUserId(),
+                    updatedBy.getFullName(),
+                    updatedBy.getUserName(),
+                    updatedBy.getMobileNumber()
+            );
+        }
+    }
+
+    public CountryDto(long countryId, String countryName, String description, LocalDateTime insertedDate,
+                      LocalDateTime updatedDate, UserProfileDtoList createdBy, UserProfileDtoList updatedBy) {
+        super();
+        this.countryId = countryId;
+        this.countryName = countryName;
+        this.description = description;
+        this.insertedDate = insertedDate;
+        this.updatedDate = updatedDate;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
+    }
+}
+>>>>>>> daccd45 (Initial commit)

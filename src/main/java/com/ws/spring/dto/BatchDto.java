@@ -3,6 +3,10 @@ package com.ws.spring.dto;
 import java.time.LocalDateTime;
 
 import com.ws.spring.model.UserProfile;
+<<<<<<< HEAD
+=======
+
+>>>>>>> daccd45 (Initial commit)
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +30,10 @@ public class BatchDto {
 
     private UserProfileDtoList updatedBy;
 
+<<<<<<< HEAD
     // Constructor using entity directly
+=======
+>>>>>>> daccd45 (Initial commit)
     public BatchDto(long batchId, String batchName, String description, LocalDateTime insertedDate,
                     LocalDateTime updatedDate, UserProfile createdBy, UserProfile updatedBy) {
         this.batchId = batchId;
@@ -58,7 +65,10 @@ public class BatchDto {
         }
     }
 
+<<<<<<< HEAD
     // Full constructor using DTOs directly
+=======
+>>>>>>> daccd45 (Initial commit)
     public BatchDto(long batchId, String batchName, String description, LocalDateTime insertedDate,
                     LocalDateTime updatedDate, UserProfileDtoList createdBy, UserProfileDtoList updatedBy) {
         this.batchId = batchId;

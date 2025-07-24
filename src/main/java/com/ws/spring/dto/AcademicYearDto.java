@@ -33,7 +33,11 @@ public class AcademicYearDto {
 
     private UserProfileDtoList updatedBy;
 
+<<<<<<< HEAD
     // Constructor using UserProfile (Entity)
+=======
+    // Constructor using Entity
+>>>>>>> daccd45 (Initial commit)
     public AcademicYearDto(long id, String name, LocalDate startDate, LocalDate endDate,
                            Boolean isCurrent, String status,
                            LocalDateTime insertedDate, LocalDateTime updatedDate,
@@ -70,7 +74,11 @@ public class AcademicYearDto {
         }
     }
 
+<<<<<<< HEAD
     // Constructor using DTO versions
+=======
+    // Constructor using DTOs
+>>>>>>> daccd45 (Initial commit)
     public AcademicYearDto(long id, String name, LocalDate startDate, LocalDate endDate,
                            Boolean isCurrent, String status,
                            LocalDateTime insertedDate, LocalDateTime updatedDate,

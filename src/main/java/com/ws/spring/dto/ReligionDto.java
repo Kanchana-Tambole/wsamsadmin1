@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class ReligionDto {
 
     private long religionId;
+<<<<<<< HEAD
 
     private String religionName;
 
@@ -29,6 +30,19 @@ public class ReligionDto {
     public ReligionDto(long religionId, String religionName, LocalDateTime insertedDate,
                        LocalDateTime updatedDate, UserProfile createdBy, UserProfile updatedBy) {
         this.religionId = religionId; // ✅ simplified assignments like BloodGroupDto
+=======
+    private String religionName;
+    private LocalDateTime insertedDate;
+    private LocalDateTime updatedDate;
+
+    private UserProfileDtoList createdBy;
+    private UserProfileDtoList updatedBy;
+
+    // Constructor using entity UserProfile
+    public ReligionDto(long religionId, String religionName, LocalDateTime insertedDate,
+                       LocalDateTime updatedDate, UserProfile createdBy, UserProfile updatedBy) {
+        this.religionId = religionId;
+>>>>>>> daccd45 (Initial commit)
         this.religionName = religionName;
         this.insertedDate = insertedDate;
         this.updatedDate = updatedDate;
@@ -56,7 +70,11 @@ public class ReligionDto {
         }
     }
 
+<<<<<<< HEAD
     // ✅ Constructor accepting DTOs directly (same as BloodGroupDto)
+=======
+    // Constructor using UserProfileDtoList
+>>>>>>> daccd45 (Initial commit)
     public ReligionDto(long religionId, String religionName, LocalDateTime insertedDate,
                        LocalDateTime updatedDate, UserProfileDtoList createdBy, UserProfileDtoList updatedBy) {
         this.religionId = religionId;

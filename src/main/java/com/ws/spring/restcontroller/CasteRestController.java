@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ws.common.util.ClientResponseUtil;
 import com.ws.spring.dto.CasteDto;
+<<<<<<< HEAD
+=======
+import com.ws.spring.dto.CasteDtoList;
+>>>>>>> daccd45 (Initial commit)
 import com.ws.spring.exception.ClientResponseBean;
 import com.ws.spring.model.Caste;
 import com.ws.spring.service.CasteServiceImpl;
@@ -45,12 +49,17 @@ public class CasteRestController {
                     HttpStatus.CREATED.value(), "SUCCESS", "Caste Successfully Created", ""));
         } catch (Exception e) {
             logger.error("Exception occurred: {}", e.getMessage(), e);
+<<<<<<< HEAD
             return ResponseEntity.badRequest().body(new ClientResponseBean(
                     HttpStatus.BAD_REQUEST.value(), "FAILED",
                     e.getCause() != null && e.getCause().getCause() != null
                             ? e.getCause().getCause().getMessage()
                             : e.getMessage(),
                     ""));
+=======
+            return ResponseEntity.badRequest().body(
+                    ClientResponseUtil.getExceptionResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+>>>>>>> daccd45 (Initial commit)
         }
     }
 
@@ -63,6 +72,7 @@ public class CasteRestController {
             logger.debug("updateCaste Id: {}, Name: {}", updated.getCasteId(), updated.getCasteName());
 
             return ResponseEntity.ok().body(new ClientResponseBean(
+<<<<<<< HEAD
                     HttpStatus.CREATED.value(), "SUCCESS", "Caste Successfully Updated", ""));
         } catch (Exception e) {
             logger.error("Exception occurred: {}", e.getMessage(), e);
@@ -79,10 +89,25 @@ public class CasteRestController {
     public ResponseEntity<ClientResponseBean> deleteCasteById(@PathVariable long id) {
         try {
             casteServiceImpl.deleteCasteById(id);
+=======
+                    HttpStatus.OK.value(), "SUCCESS", "Caste Successfully Updated", ""));
+        } catch (Exception e) {
+            logger.error("Exception occurred: {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(
+                    ClientResponseUtil.getExceptionResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/v1/deleteCasteById/{casteId}")
+    public ResponseEntity<ClientResponseBean> deleteCasteById(@PathVariable long casteId) {
+        try {
+            casteServiceImpl.deleteCasteById(casteId);
+>>>>>>> daccd45 (Initial commit)
             return ResponseEntity.ok().body(new ClientResponseBean(
                     HttpStatus.OK.value(), "SUCCESS", "Caste Successfully Deleted", ""));
         } catch (Exception e) {
             logger.error("Exception occurred: {}", e.getMessage(), e);
+<<<<<<< HEAD
             return ResponseEntity.badRequest().body(new ClientResponseBean(
                     HttpStatus.BAD_REQUEST.value(), "FAILED",
                     e.getCause() != null && e.getCause().getCause() != null
@@ -95,6 +120,16 @@ public class CasteRestController {
     @GetMapping("/v1/getCasteById/{id}")
     public ResponseEntity<?> getCasteById(@PathVariable long id) {
         CasteDto casteDto = casteServiceImpl.getCasteById(id);
+=======
+            return ResponseEntity.badRequest().body(
+                    ClientResponseUtil.getExceptionResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+        }
+    }
+
+    @GetMapping("/v1/getCasteById/{casteId}")
+    public ResponseEntity<?> getCasteById(@PathVariable long casteId) {
+        CasteDto casteDto = casteServiceImpl.getCasteById(casteId);
+>>>>>>> daccd45 (Initial commit)
         if (casteDto == null) {
             Map<String, String> noContentMessage = new HashMap<>();
             noContentMessage.put("message", "Nothing found");
@@ -104,14 +139,24 @@ public class CasteRestController {
     }
 
     @GetMapping("/v1/getAllCastes")
+<<<<<<< HEAD
     public ResponseEntity<List<CasteDto>> getAllCastes() {
         List<CasteDto> casteList = casteServiceImpl.getAllCastes();
+=======
+    public ResponseEntity<List<CasteDtoList>> getAllCastes() {
+        List<CasteDtoList> casteList = casteServiceImpl.getAllCaste();
+>>>>>>> daccd45 (Initial commit)
         return ResponseEntity.ok().body(casteList);
     }
 
     @GetMapping("/v1/getAllCastesByPagination")
     public Page<CasteDto> getAllCastesByPagination(@RequestParam int pageNumber,
+<<<<<<< HEAD
                                                     @RequestParam int pageSize) {
         return casteServiceImpl.getAllCastesByPagination(pageNumber, pageSize);
+=======
+                                                   @RequestParam int pageSize) {
+        return casteServiceImpl.getAllCasteByPagination(pageNumber, pageSize);
+>>>>>>> daccd45 (Initial commit)
     }
 }
